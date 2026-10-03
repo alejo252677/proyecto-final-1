@@ -1,0 +1,113 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #101116;
+    color: white;
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+header {
+    padding: 30px;
+    background-color: #18191f;
+    border-bottom: 3px solid #ff4655;
+}
+
+h1 {
+    font-size: 32px;
+    color: #ff4655;
+    letter-spacing: 3px;
+}
+
+header p {
+    margin-top: 10px;
+    color: #cccccc;
+}
+
+main {
+    padding: 40px 20px;
+}
+
+.ruleta {
+    width: 90%;
+    max-width: 900px;
+    margin: auto;
+    position: relative;
+}
+
+.indicador {
+    color: #ff4655;
+    font-size: 35px;
+    height: 40px;
+}
+
+.ventana {
+    width: 100%;
+    height: 220px;
+    overflow: hidden;
+    background-color: #18191f;
+    border: 2px solid #ff4655;
+    display: flex;
+    align-items: center;
+}
+
+.cinta {
+    display: flex;
+    gap: 15px;
+    transition: transform 4s ease-out;
+}
+
+.cuchillo {
+    min-width: 180px;
+    height: 180px;
+    background-color: #242630;
+    border: 1px solid #555;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cuchillo img {
+    width: 160px;
+    max-height: 150px;
+    object-fit: contain;
+}
+
+#botonGirar {
+    margin-top: 35px;
+    padding: 15px 50px;
+    background-color: #ff4655;
+    color: white;
+    border: none;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#botonGirar:hover {
+    background-color: #d93645;
+}
+
+.resultado {
+    margin-top: 45px;
+}
+
+.resultado h2 {
+    color: #ff4655;
+    margin-bottom: 20px;
+}
+
+#imagenResultado {
+    width: 250px;
+    max-height: 180px;
+    object-fit: contain;
+}
+
+#nombreResultado {
+    margin-top: 15px;
+    font-size: 24px;
+}
