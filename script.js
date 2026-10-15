@@ -7,11 +7,40 @@ const previousBtn = document.getElementById('previousBtn');
 const nextBtn = document.getElementById('nextBtn');
 const loading = document.getElementById('loading');
 const errorMessage = document.getElementById('errorMessage');
+const categoryTitle = document.querySelector('.section-title h2');
 
-const weaponsPerPage = 4;
+const categorias = [
+    { nombre: 'Pistolas', tipos: ['pistola', 'revolver'] },
+    { nombre: 'Subfusiles', tipos: ['subfusil'] },
+    { nombre: 'Francotiradores', tipos: ['francotirador'] },
+    { nombre: 'Rifles', tipos: ['rifle'] },
+    { nombre: 'Escopetas', tipos: ['escopeta'] }
+];
 let armas = [];
 let armasFiltradas = [];
 let paginaActual = 1;
+
+function obtenerCategoria(arma) {
+    const tipo = arma.tipo.toLowerCase();
+    return categorias.find(function (categoria) {
+        return categoria.tipos.some(function (nombreTipo) {
+            return tipo.includes(nombreTipo);
+        });
+    });
+}
+
+function obtenerPaginas() {
+    return categorias.map(function (categoria) {
+        return {
+            categoria: categoria,
+            armas: armasFiltradas.filter(function (arma) {
+                return obtenerCategoria(arma) === categoria;
+            })
+        };
+    }).filter(function (pagina) {
+        return pagina.armas.length > 0;
+    });
+}
 
 // Carga las armas desde el archivo JSON.
 async function cargarArmas() {
@@ -42,21 +71,21 @@ async function cargarArmas() {
 
 // Muestra en pantalla las armas de la página actual.
 function renderizarPagina() {
-    const inicio = (paginaActual - 1) * weaponsPerPage;
-    const fin = inicio + weaponsPerPage;
-    const armasPagina = armasFiltradas.slice(inicio, fin);
+    const paginas = obtenerPaginas();
+    const pagina = paginas[paginaActual - 1];
 
     container.innerHTML = '';
+    categoryTitle.textContent = pagina ? pagina.categoria.nombre : 'Armas';
 
-    if (armasPagina.length === 0) {
+    if (!pagina) {
         container.innerHTML = '<p style="color: #9fb5c9;">No se encontraron armas.</p>';
         armCounter.textContent = '0 Armas';
         actualizarBotonesPaginacion();
         return;
     }
 
-    for (let i = 0; i < armasPagina.length; i++) {
-        const arma = armasPagina[i];
+    for (let i = 0; i < pagina.armas.length; i++) {
+        const arma = pagina.armas[i];
         const card = document.createElement('article');
         card.className = 'arm-card';
         card.innerHTML = `
@@ -81,15 +110,15 @@ function renderizarPagina() {
         container.appendChild(card);
     }
 
-    armCounter.textContent = armasFiltradas.length + ' Armas';
+    armCounter.textContent = pagina.armas.length + ' Armas';
     actualizarBotonesPaginacion();
 }
 
 function actualizarBotonesPaginacion() {
-    const totalPaginas = Math.max(1, Math.ceil(armasFiltradas.length / weaponsPerPage));
+    const totalPaginas = obtenerPaginas().length;
 
     previousBtn.disabled = paginaActual === 1;
-    nextBtn.disabled = paginaActual === totalPaginas || armasFiltradas.length === 0;
+    nextBtn.disabled = paginaActual === totalPaginas || totalPaginas === 0;
 }
 
 function mostrarDetalle(arma) {
@@ -157,7 +186,8 @@ searchInput.addEventListener('keydown', function (event) {
 
 // Cambia de página y muestra el detalle de la primera arma de esa página.
 function cambiarPagina(direccion) {
-    const totalPaginas = Math.ceil(armasFiltradas.length / weaponsPerPage);
+    const paginas = obtenerPaginas();
+    const totalPaginas = paginas.length;
     const nuevaPagina = paginaActual + direccion;
 
     if (nuevaPagina < 1 || nuevaPagina > totalPaginas) {
@@ -166,7 +196,7 @@ function cambiarPagina(direccion) {
 
     paginaActual = nuevaPagina;
     renderizarPagina();
-    mostrarDetalle(armasFiltradas[(paginaActual - 1) * weaponsPerPage]);
+    mostrarDetalle(paginas[paginaActual - 1].armas[0]);
 }
 
 function paginaAnterior() {

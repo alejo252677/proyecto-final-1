@@ -1,14 +1,14 @@
 :root {
-    --bg: #0d1117;
-    --bg-soft: #151b22;
-    --panel: #1d2733;
-    --panel-2: #263444;
-    --border: rgba(255, 255, 255, 0.08);
-    --text: #eaf3ff;
-    --muted: #9fb5c9;
-    --accent: #38d9a9;
-    --accent-2: #6dc9ff;
-    --danger: #ff5f6d;
+    --bg: #111318;
+    --bg-soft: #171a21;
+    --panel: #1c2028;
+    --panel-2: #292e38;
+    --border: rgba(255, 255, 255, 0.12);
+    --text: #f3f4f6;
+    --muted: #b4bac5;
+    --accent: #ff4655;
+    --accent-2: #ff7380;
+    --danger: #ff6672;
 }
 
 * {
@@ -27,7 +27,7 @@ body {
 }
 
 img {
-    max-width: 100%;
+    max-width: 87%;
     display: block;
 }
 
@@ -57,15 +57,6 @@ header {
     gap: 16px;
 }
 
-.logo img {
-    width: 60px;
-    height: 60px;
-    object-fit: cover;
-    border-radius: 14px;
-    border: 1px solid var(--border);
-    background: #0b0f14;
-}
-
 .logo h1 {
     font-size: clamp(1.3rem, 2vw, 2rem);
     letter-spacing: 0.04em;
@@ -90,19 +81,20 @@ header {
     padding: 12px 14px;
     border-radius: 12px;
     border: 1px solid var(--border);
-    background: rgba(15, 20, 26, 0.9);
+    background: var(--bg-soft);
     color: var(--text);
     outline: none;
 }
 
 .search input:focus {
     border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(255, 70, 85, 0.18);
 }
 
 .search button,
 .pagination button {
     background: var(--accent);
-    color: #081018;
+    color: #ffffff;
     border: none;
     padding: 12px 16px;
     border-radius: 12px;
@@ -113,6 +105,13 @@ header {
 .search button:hover,
 .pagination button:hover {
     background: var(--accent-2);
+}
+
+.search button:disabled,
+.pagination button:disabled {
+    background: #3a3e47;
+    color: #a0a5ae;
+    cursor: not-allowed;
 }
 
 /* MAIN */
@@ -128,10 +127,10 @@ main {
 
 .arms-list,
 .search-detail {
+    padding: 2px;
     background: var(--panel);
     border: 1px solid var(--border);
-    border-radius: 22px;
-    overflow: hidden;
+    border-radius: 25px;
 }
 
 .arms-list {
@@ -164,30 +163,35 @@ main {
 
 #Container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-    gap: 16px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
 }
 
 .arm-card {
     background: var(--panel-2);
-    border: 1px solid var(--border);
-    border-radius: 16px;
+    border: 2px solid var(--border);
+    border-radius: 20px;
+    min-height: 280px;
     overflow: hidden;
     cursor: pointer;
 }
 
 .arm-card:hover {
-    border-color: var(--accent-2);
+    border-color: var(--accent);
 }
 
 .arm-card.active {
     border-color: var(--accent);
+    box-shadow: 0 0 0 2px rgba(255, 70, 85, 0.18);
 }
 
 .arm-card img {
     width: 100%;
-    height: 130px;
-    object-fit: cover;
+    max-width: 100%;
+    height: 180px;
+    object-fit: contain;
+    object-position: center;
+    margin: 0 auto;
     background: var(--bg-soft);
 }
 
@@ -243,7 +247,8 @@ main {
     width: 100%;
     max-width: 260px;
     height: 200px;
-    object-fit: cover;
+    object-fit: contain;
+    object-position: center;
     border-radius: 16px;
     border: 1px solid var(--border);
     background: var(--bg-soft);
@@ -264,7 +269,7 @@ main {
 #loading {
     position: fixed;
     inset: 0;
-    background: rgba(9, 12, 16, 0.8);
+    background: rgba(17, 19, 24, 0.88);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -278,6 +283,7 @@ main {
     height: 52px;
     border: 4px solid var(--accent);
     border-radius: 50%;
+    border-top-color: transparent;
 }
 
 #loading p {
@@ -292,9 +298,9 @@ main {
     bottom: 30px;
     left: 50%;
     transform: translateX(-50%);
-    background: rgba(255, 95, 109, 0.15);
-    border: 1px solid rgba(255, 95, 109, 0.4);
-    color: #ffd7dc;
+    background: rgba(255, 70, 85, 0.16);
+    border: 1px solid rgba(255, 70, 85, 0.55);
+    color: #ffe3e6;
     padding: 12px 18px;
     border-radius: 12px;
     z-index: 1001;
@@ -315,6 +321,97 @@ footer {
     color: var(--muted);
     font-size: 0.82rem;
     line-height: 1.8;
+}
+
+@media (min-width: 901px) and (max-height: 900px) {
+    header {
+        margin-top: 12px;
+        padding: 12px 20px;
+    }
+
+    .logo h1 {
+        font-size: 1.5rem;
+    }
+
+    main {
+        margin-top: 12px;
+        gap: 16px;
+    }
+
+    .arms-list {
+        padding: 14px;
+    }
+
+    .section-title {
+        margin-bottom: 10px;
+        padding-bottom: 8px;
+    }
+
+    .section-title h2 {
+        font-size: 1.2rem;
+    }
+
+    #Container {
+        gap: 12px;
+    }
+
+    .arm-card {
+        min-height: 0;
+    }
+
+    .arm-card img {
+        height: 125px;
+    }
+
+    .arm-card-body {
+        padding: 8px 10px;
+    }
+
+    .arm-card-body h3 {
+        font-size: 0.95rem;
+    }
+
+    .arm-card-body p {
+        font-size: 0.75rem;
+    }
+
+    .pagination {
+        margin-top: 12px;
+    }
+
+    .pagination button {
+        min-height: 38px;
+        padding: 8px 12px;
+    }
+
+    .search-detail {
+        padding: 12px;
+    }
+
+    #detailContainer {
+        padding: 12px;
+        gap: 10px;
+    }
+
+    #detailContainer img {
+        height: 150px;
+        max-width: 220px;
+    }
+
+    #detailContainer h2 {
+        font-size: 1.3rem;
+    }
+
+    #detailContainer p {
+        font-size: 0.9rem;
+    }
+
+    footer {
+        margin-top: 10px;
+        margin-bottom: 10px;
+        padding: 10px;
+        font-size: 0.75rem;
+    }
 }
 
 /* RESPONSIVE */
