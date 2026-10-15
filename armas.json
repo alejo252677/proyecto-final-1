@@ -1,0 +1,112 @@
+[
+    {
+        "id": 1,
+        "nombre": "classic",
+        "bando": "cualquiera",
+        "tipo": "Pistola",
+        "precio": 0,
+        "daño": 78,
+        "imagen": "https://tse3.mm.bing.net/th/id/OIP.0jxV29dMrGtn3sF-a8MxMAHaE6?r=0&pid=Api&h=220&P=0"
+    },
+    {
+                "id": 2,
+        "nombre": "sheriff",
+        "bando": "cualquiera",
+        "tipo": "revolver",
+        "precio": 800,
+        "daño": 159,
+        "imagen": "https://tse4.mm.bing.net/th/id/OIP.2DkgrkQW9Di8E_345kSEXwHaE0?r=0&pid=Api&h=220&P=0"
+    },
+    {
+        "id": 3,
+        "nombre": "frenzy",
+        "bando": "cualquiera",
+        "tipo": "pistola automatica",
+        "precio": 450,
+        "daño": 78,
+        "imagen": "https://tse2.mm.bing.net/th/id/OIP.UOcPxhiIJeQEguvTp3bkSQHaEK?r=0&pid=Api&h=220&P=0"
+    },
+    {
+         "id": 4,
+        "nombre": "ghost",
+        "bando": "cualquiera",
+        "tipo": "Pistola",
+        "precio": 500,
+        "daño": 105,
+        "imagen": "https://tse4.mm.bing.net/th/id/OIP.h7wkR5OkA2RKxTizd6pttQHaEK?r=0&pid=Api&h=220&P=0"
+    },   
+    {
+        "id": 5,
+        "nombre": "shorty",
+        "bando": "cualquiera",
+        "tipo": "escopeta",
+        "precio": 300,
+        "daño": 36,
+        "imagen": "https://tse3.mm.bing.net/th/id/OIP.15U84t-ifeWG4u3qJDsffwHaDl?r=0&pid=Api&h=220&P=0" 
+    },
+    {
+        "id": 8,
+        "nombre": "stinger",
+        "bando": "cualquiera",
+        "tipo": "Subfusil",
+        "precio": 1100,
+        "daño": 67,
+        "imagen": "https://tse3.mm.bing.net/th/id/OIP.J1hiaXbPzUC8_5o2e3daSQHaEK?r=0&pid=Api&h=220&P=0"
+    },
+    {
+        "id": 9,
+        "nombre": "spectre",
+        "bando": "cualquiera",
+        "tipo": "Subfusil",
+        "precio": 1600,
+        "daño": 78,
+        "imagen": "https://tse3.mm.bing.net/th/id/OIP.H_NAQ2bNeaF5_KhG7-uC5AHaDp?r=0&pid=Api&h=220&P=0"
+    },
+    {
+        "id": 10,
+        "nombre": "marshal",
+        "bando": "cualquiera",
+        "tipo": "francotirador",
+        "precio": 950,
+        "daño": 202,
+        "imagen": "https://tse1.mm.bing.net/th/id/OIP.2i9MPNXKUnVOb_MbO7nitQHaC0?r=0&pid=Api&h=220&P=0"
+    },
+    {
+        "id": 11,
+        "nombre": "guardian",
+        "bando": "cualquiera",
+        "tipo": "Rifle",
+        "precio": 2250,
+        "daño": 195,
+        "imagen": "https://tse2.mm.bing.net/th/id/OIP.EjglWINFGmEgmqgv0WFaTAHaDP?r=0&pid=Api&h=220&P=0"
+    },
+    {
+        "id": 12,
+        "nombre": "phantom",
+        "bando": "cualquiera",
+        "tipo": "Rifle",
+        "precio": 2900,
+        "daño": 156,
+        "imagen": "https://tse1.mm.bing.net/th/id/OIP.ynnREVHihmrLh8RC9vsBfQHaEL?r=0&pid=Api&h=220&P=0"
+    },
+    {
+        "id": 13,
+        "nombre": "vandal",
+        "bando": "cualquiera",
+        "tipo": "rifle",
+        "precio": 2900,
+        "daño": 160,
+        "imagen": "https://tse2.mm.bing.net/th/id/OIP.SPbCR4szNVwI3si1OmiL5wHaDt?r=0&pid=Api&h=220&P=0"
+    },
+    {
+         "id": 14,
+        "nombre": "bulldog",
+        "bando": "cualquiera",
+        "tipo": "rifle",
+        "precio": 2050,
+        "daño": 115,
+        "imagen": "https://tse2.mm.bing.net/th/id/OIP.Jkyg98braY6dwR_fkww7HwHaDU?r=0&pid=Api&h=220&P=0"
+       
+    }
+
+]
