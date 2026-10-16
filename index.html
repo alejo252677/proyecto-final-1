@@ -20,7 +20,7 @@
 
 </head>
 
-<body>
+<body data-theme="dark">
 
     <!-- ========================= -->
     <!-- HEADER -->
@@ -52,6 +52,21 @@
 
             </button>
 
+            <button id="randomWeaponButton" disabled>
+
+                Arma aleatoria
+
+            </button>
+
+        </div>
+
+        <div class="theme-controls">
+            <label for="themeSelect">Tema:</label>
+            <select id="themeSelect" aria-label="Seleccionar modo de color">
+                <option value="light">Modo claro</option>
+                <option value="dark" selected>Modo oscuro</option>
+                <option value="party">Modo fiesta</option>
+            </select>
         </div>
 
     </header>

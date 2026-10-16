@@ -3,6 +3,8 @@ const detailContainer = document.getElementById('detailContainer');
 const armCounter = document.getElementById('armCounter');
 const searchInput = document.getElementById('searchInput');
 const searchButton = document.getElementById('searchButton');
+const randomWeaponButton = document.getElementById('randomWeaponButton');
+const themeSelect = document.getElementById('themeSelect');
 const previousBtn = document.getElementById('previousBtn');
 const nextBtn = document.getElementById('nextBtn');
 const loading = document.getElementById('loading');
@@ -19,6 +21,12 @@ const categorias = [
 let armas = [];
 let armasFiltradas = [];
 let paginaActual = 1;
+
+function cambiarTema(modo) {
+    const modoFiesta = modo === 'party';
+    document.body.dataset.theme = modoFiesta ? 'dark' : modo;
+    document.body.classList.toggle('party-mode', modoFiesta);
+}
 
 function obtenerCategoria(arma) {
     const tipo = arma.tipo.toLowerCase();
@@ -59,6 +67,7 @@ async function cargarArmas() {
 
         armas = await response.json();
         armasFiltradas = armas;
+        randomWeaponButton.disabled = armas.length === 0;
         renderizarPagina();
         mostrarDetalle(null);
     } catch (error) {
@@ -88,6 +97,7 @@ function renderizarPagina() {
         const arma = pagina.armas[i];
         const card = document.createElement('article');
         card.className = 'arm-card';
+        card.dataset.armaId = arma.id;
         card.innerHTML = `
             <img src="${arma.imagen}" alt="${arma.nombre}">
             <div class="arm-card-body">
@@ -97,14 +107,7 @@ function renderizarPagina() {
         `;
 
         card.addEventListener('click', function () {
-            const cards = document.querySelectorAll('.arm-card');
-
-            for (let j = 0; j < cards.length; j++) {
-                cards[j].classList.remove('active');
-            }
-
-            card.classList.add('active');
-            mostrarDetalle(arma);
+            seleccionarArma(arma);
         });
 
         container.appendChild(card);
@@ -114,6 +117,45 @@ function renderizarPagina() {
     actualizarBotonesPaginacion();
 }
 
+function seleccionarArma(arma) {
+    const cards = document.querySelectorAll('.arm-card');
+
+    for (let i = 0; i < cards.length; i++) {
+        cards[i].classList.toggle('active', cards[i].dataset.armaId === String(arma.id));
+    }
+
+    mostrarDetalle(arma, true);
+}
+
+function seleccionarArmaAleatoria() {
+    const armasDisponibles = armas.filter(function (arma) {
+        return obtenerCategoria(arma) !== undefined;
+    });
+
+    if (armasDisponibles.length === 0) {
+        mostrarError('No hay armas disponibles para elegir.');
+        return;
+    }
+
+    const arma = armasDisponibles[Math.floor(Math.random() * armasDisponibles.length)];
+    armasFiltradas = armas;
+    searchInput.value = '';
+
+    const paginas = obtenerPaginas();
+    const indicePagina = paginas.findIndex(function (pagina) {
+        return pagina.armas.includes(arma);
+    });
+
+    if (indicePagina === -1) {
+        mostrarError('No se pudo mostrar el arma seleccionada.');
+        return;
+    }
+
+    paginaActual = indicePagina + 1;
+    renderizarPagina();
+    seleccionarArma(arma);
+}
+
 function actualizarBotonesPaginacion() {
     const totalPaginas = obtenerPaginas().length;
 
@@ -121,8 +163,9 @@ function actualizarBotonesPaginacion() {
     nextBtn.disabled = paginaActual === totalPaginas || totalPaginas === 0;
 }
 
-function mostrarDetalle(arma) {
+function mostrarDetalle(arma, resaltar) {
     if (!arma) {
+        detailContainer.classList.remove('weapon-selected');
         detailContainer.innerHTML = `
             <img src="https://cdna.artstation.com/p/assets/images/images/025/645/082/large/vladyslav-liedienov-first-terrorist5.jpg?1586457106" alt="CSGO">
             <h2>valorant</h2>
@@ -131,6 +174,7 @@ function mostrarDetalle(arma) {
         return;
     }
 
+    detailContainer.classList.toggle('weapon-selected', Boolean(resaltar));
     detailContainer.innerHTML = `
         <img src="${arma.imagen}" alt="${arma.nombre}">
         <h2>${arma.nombre}</h2>
@@ -160,8 +204,9 @@ function buscarArmas() {
     paginaActual = 1;
     renderizarPagina();
 
-    if (armasFiltradas.length > 0) {
-        mostrarDetalle(armasFiltradas[0]);
+    const primeraPagina = obtenerPaginas()[0];
+    if (primeraPagina) {
+        seleccionarArma(primeraPagina.armas[0]);
     } else {
         mostrarDetalle(null);
     }
@@ -177,6 +222,10 @@ function mostrarError(mensaje) {
 }
 
 searchButton.addEventListener('click', buscarArmas);
+randomWeaponButton.addEventListener('click', seleccionarArmaAleatoria);
+themeSelect.addEventListener('change', function () {
+    cambiarTema(themeSelect.value);
+});
 
 searchInput.addEventListener('keydown', function (event) {
     if (event.key === 'Enter') {
@@ -184,7 +233,7 @@ searchInput.addEventListener('keydown', function (event) {
     }
 });
 
-// Cambia de página y muestra el detalle de la primera arma de esa página.
+// Cambia de página sin modificar el arma mostrada en el panel de detalles.
 function cambiarPagina(direccion) {
     const paginas = obtenerPaginas();
     const totalPaginas = paginas.length;
@@ -193,10 +242,9 @@ function cambiarPagina(direccion) {
     if (nuevaPagina < 1 || nuevaPagina > totalPaginas) {
         return;
     }
-
     paginaActual = nuevaPagina;
     renderizarPagina();
-    mostrarDetalle(paginas[paginaActual - 1].armas[0]);
+    renderizarPagina();
 }
 
 function paginaAnterior() {
